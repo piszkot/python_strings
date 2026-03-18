@@ -1,153 +1,135 @@
-# Python String Methods — Reference
-Strings are immutable: every method returns a NEW string, never modifies the original.
+# 🔎 print(help(str))
 
----
+Help on class str in module builtins:
 
-## CASE
-
-```python
-s = "  Hello, World!  "
-```
-
-#### `upper()` / `lower()` / `title()` / `swapcase()` / `capitalize()` / `casefold()`
-```python
-print("hello".upper())          # → "HELLO"
-print("HELLO".lower())          # → "hello"
-print("hello world".title())    # → "Hello World"
-print("hello World".swapcase()) # → "HELLO wORLD"
-print("hello world".capitalize()) # → "Hello world"  (only first char)
-print("RÉSUMÉ".casefold())      # → "résumé"  (aggressive lower, good for comparisons)
-```
-
----
-
-## SEARCHING
-
-```python
-text = "the cat sat on the mat"
-```
-
-#### `find()` / `rfind()` / `index()` / `rindex()` / `count()`
-```python
-print(text.find("at"))          # → 5   first occurrence, -1 if missing
-print(text.rfind("at"))         # → 20  last occurrence, -1 if missing
-print(text.index("at"))         # → 5   like find(), but raises ValueError if missing
-print(text.rindex("at"))        # → 20  like rfind(), but raises ValueError if missing
-print(text.count("at"))         # → 3   counts non-overlapping occurrences
-print(text.count("at", 6))      # → 2   count within a range
-```
-
----
-
-## CHECKING — all return bool
-
-#### `startswith()` / `endswith()` / `isalnum()` / `isalpha()` / `isdigit()` / `isnumeric()` / `isspace()` / `islower()` / `isupper()` / `istitle()`
-```python
-print("Hello".startswith("He"))     # → True
-print("Hello".endswith("lo"))       # → True
-print("hello123".isalnum())         # → True   letters and/or digits only
-print("hello".isalpha())            # → True   letters only
-print("123".isdigit())              # → True   digits only (0–9)
-print("123".isnumeric())            # → True   broader: includes ², ³, ½ etc.
-print("   ".isspace())              # → True   whitespace only
-print("hello world".islower())      # → True
-print("HELLO".isupper())            # → True
-print("Hello World".istitle())      # → True
-
-# isdigit vs isnumeric edge case
-print("²".isdigit())    # → True   (superscript 2 counts as digit)
-print("½".isdigit())    # → False
-print("½".isnumeric())  # → True   (numeric but not digit)
-```
-
----
-
-## STRIPPING
-
-#### `strip()` / `lstrip()` / `rstrip()`
-```python
-print(s.strip())        # → "Hello, World!"   removes leading & trailing whitespace
-print(s.lstrip())       # → "Hello, World!  " removes leading only
-print(s.rstrip())       # → "  Hello, World!" removes trailing only
-print("xxHelloxx".strip("x"))  # → "Hello"  strips specific characters
-```
-
----
-
-## REPLACING & REMOVING
-
-#### `replace()` / `expandtabs()`
-```python
-print("aabbcc".replace("b", "X"))      # → "aaXXcc"  replaces all occurrences
-print("aabbcc".replace("b", "X", 1))   # → "aaXbcc"  optional count limit
-print("hello\nworld\t!".expandtabs(4)) # replaces \t with spaces (default 8)
-```
-
----
-
-## SPLITTING & JOINING
-
-#### `split()` / `rsplit()` / `splitlines()` / `join()`
-```python
-print("a,b,c".split(","))          # → ["a", "b", "c"]
-print("a,b,c".split(",", 1))       # → ["a", "b,c"]  limit splits
-print("a,,b".split(","))           # → ["a", "", "b"]  empty strings preserved
-print("  hello  world  ".split())  # → ["hello", "world"]  splits on any whitespace, no empties
-
-print("hello world".rsplit(" ", 1))        # → ["hello", "world"]  split from the right
-print("line1\nline2\nline3".splitlines())  # → ["line1", "line2", "line3"]
-
-print(", ".join(["a", "b", "c"]))  # → "a, b, c"
-print("".join(["h", "i"]))         # → "hi"
-```
-
----
-
-## PADDING & ALIGNMENT
-
-#### `ljust()` / `rjust()` / `center()` / `zfill()`
-```python
-print("hi".ljust(10))         # → "hi        "
-print("hi".rjust(10))         # → "        hi"
-print("hi".center(10))        # → "    hi    "
-print("hi".ljust(10, "-"))    # → "hi--------"  custom fill character
-print("42".zfill(5))          # → "00042"  zero-pad (useful for numbers)
-```
-
----
-
-## FORMATTING
-
-#### `format()`
-```python
-print("Hello, {}!".format("world"))           # → "Hello, world!"
-print("Hello, {name}!".format(name="world"))  # → "Hello, world!"
-name, age = "Alice", 30
-print(f"{name} is {age} years old")           # → "Alice is 30 years old"
-print(f"{3.14159:.2f}")                        # → "3.14"
-```
-
----
-
-## ENCODING & MISC
-
-#### `encode()` / `decode()`
-```python
-print("hello".encode("utf-8"))          # → b"hello"  bytes object
-print(b"hello".decode("utf-8"))         # → "hello"
-```
-
-#### `maketrans()` / `translate()`
-```python
-print("hello".maketrans("aeiou", "12345"))        # creates translation table
-table = str.maketrans("aeiou", "12345")
-print("hello world".translate(table))             # → "h2ll4 w4rld"
-```
-
-#### misc
-```python
-print("hello" * 3)         # → "hellohellohello"  repetition
-print("hello" + " world")  # → "hello world"      concatenation (use join for many strings)
-print(len("hello"))        # → 5
-print("hello"[1:4])        # → "ell"  slicing works on strings too
-```
+**class str(object)**
+|  str(object='') -> str
+|  str(bytes_or_buffer[, encoding[, errors]]) -> str
+|
+|  Create a new string object from the given object. If encoding or
+|  errors is specified, then the object must expose a data buffer
+|  that will be decoded using the given encoding and error handler.
+|  Otherwise, returns the result of object.__str__() (if defined)
+|  or repr(object).
+|  encoding defaults to sys.getdefaultencoding().
+|  errors defaults to 'strict'.
+|
+|  Methods defined here:
+|
+|  **__add__(self, value, /)**
+|      Return self+value.
+|
+|  **__contains__(self, key, /)**
+|      Return bool(key in self).
+|
+|  **__eq__(self, value, /)**
+|      Return self==value.
+|        
+|  **__format__(self, format_spec, /)**
+|      Return a formatted version of the string as described by format_spec.
+|        
+|  **__ge__(self, value, /)**
+|      Return self>=value.
+|        
+|  **__getitem__(self, key, /)**
+|      Return self[key].
+|        
+|  **__getnewargs__(...)**
+|        
+|  **__gt__(self, value, /)**
+|      Return self>value.
+|        
+|  **__hash__(self, /)**
+|      Return hash(self).
+|        
+|  **__iter__(self, /)**
+|      Implement iter(self).
+|        
+|  **__le__(self, value, /)**
+|      Return self<=value.
+|        
+|  **__len__(self, /)**
+|      Return len(self).
+|        
+|  **__lt__(self, value, /)**
+|      Return self<value.
+|        
+|  **__mod__(self, value, /)**
+|      Return self%value.
+|        
+|  **__mul__(self, value, /)**
+|      Return self*value.
+|        
+|  **__ne__(self, value, /)**
+|      Return self!=value.
+|        
+|  **__repr__(self, /)**
+|      Return repr(self).
+|        
+|  **__rmod__(self, value, /)**
+|      Return value%self.
+|        
+|  **__rmul__(self, value, /)**
+|      Return value*self.
+|        
+|  **__sizeof__(self, /)**
+|      Return the size of the string in memory, in bytes.
+|        
+|  **__str__(self, /)**
+|      Return str(self).
+|        
+|  **capitalize(self, /)**
+|      Return a capitalized version of the string.
+|        
+|      More specifically, make the first character have upper case and the rest lower
+|      case.
+|        
+|  **casefold(self, /)**
+|      Return a version of the string suitable for caseless comparisons.
+|        
+|  **center(self, width, fillchar=' ', /)**
+|      Return a centered string of length width.
+|        
+|      Padding is done using the specified fill character (default is a space).
+|        
+|  **count(...)**
+|      S.count(sub[, start[, end]]) -> int
+|        
+|      Return the number of non-overlapping occurrences of substring sub in
+|      string S[start:end].  Optional arguments start and end are
+|      interpreted as in slice notation.
+|        
+|  **encode(self, /, encoding='utf-8', errors='strict')**
+|      Encode the string using the codec registered for encoding.
+|        
+|      encoding
+|        The encoding in which to encode the string.
+|      errors
+|        The error handling scheme to use for encoding errors.
+|        The default is 'strict' meaning that encoding errors raise a
+|        UnicodeEncodeError.  Other possible values are 'ignore', 'replace' and
+|        'xmlcharrefreplace' as well as any other name registered with
+|        codecs.register_error that can handle UnicodeEncodeErrors.
+|        
+|  **endswith(...)**
+|      S.endswith(suffix[, start[, end]]) -> bool
+|        
+|      Return True if S ends with the specified suffix, False otherwise.
+|      With optional start, test S beginning at that position.
+|      With optional end, stop comparing S at that position.
+|      suffix can also be a tuple of strings to try.
+|        
+|  **expandtabs(self, /, tabsize=8)**
+|      Return a copy where all tab characters are expanded using spaces.
+|        
+|      If tabsize is not given, a tab size of 8 characters is assumed.
+|        
+|  **find(...)**
+|      S.find(sub[, start[, end]]) -> int
+|        
+|      Return the lowest index in S where substring sub is found,
+|      such that sub is contained within S[start:end].  Optional
+|      arguments start and end are interpreted as in slice notation.
+|        
+|      Return -1 on failure.
+|
