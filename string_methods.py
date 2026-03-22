@@ -16,7 +16,7 @@ print("hello world".title())    # → "Hello World"
 print("hello World".swapcase())  # → "HELLO wORLD"
 print("hello world".capitalize())  # → "Hello world"  (only first char)
 # → "résumé"  (aggressive lower, good for comparisons)
-print("RÉSUMÉ".casefold())
+print("STRAßE".casefold())
 
 
 # =============================================================================
@@ -32,6 +32,7 @@ print(text.index("at"))
 # → 20  like rfind(), but raises ValueError if missing
 print(text.rindex("at"))
 print(text.count("at"))         # → 3   counts non-overlapping occurrences
+print("banana".count("ana"))    # → 1
 print(text.count("at", 6))      # → 2   count within a range
 
 
@@ -112,15 +113,16 @@ print("Hello, {}!".format("world"))           # → "Hello, world!"
 print("Hello, {name}!".format(name="world"))  # → "Hello, world!"
 name, age = "Alice", 30
 print(f"{name} is {age} years old")           # → "Alice is 30 years old"
-print(f"{3.14159:.2f}")                        # → "3.14"
+print(f"{3.14159:.2f}")                       # → "3.14"
 
 
 # =============================================================================
 # ENCODING & MISC
 # =============================================================================
 
-print("hello".encode("utf-8"))          # → b"hello"  bytes object
-print(b"hello".decode("utf-8"))         # → "hello"
+# → b'za\xc5\xbc\xc3\xb3\xc5\x82\xc4\x87':
+print("zażółć".encode("utf-8"))
+print(b"za\xc5\xbc\xc3\xb3\xc5\x82\xc4\x87".decode("utf-8"))  # → "zażółć"
 
 print("hello".maketrans("aeiou", "12345"))        # creates translation table
 table = str.maketrans("aeiou", "12345")
